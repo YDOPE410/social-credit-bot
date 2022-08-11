@@ -1,6 +1,8 @@
 require("dotenv").config();
 const multiplier = 20;
 
+const express = require("express");
+
 const db = {};
 
 const TeleBot = require("telebot");
@@ -68,3 +70,7 @@ bot.on("sticker", (msg) => {
 });
 
 bot.start();
+
+express()
+  .get("/", (req, res) => res.json({ page: "index" }))
+  .listen(process.env.PORT || 5000);
