@@ -74,8 +74,6 @@ bot.launch({}).then(() => console.log("Bot started"));
 
 const app = express();
 
-app.get("/", () => {});
-
 app.get("/", (req, res) => res.json({ page: "index" }));
 
 app.listen(process.env.PORT || 3000);
