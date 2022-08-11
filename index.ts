@@ -69,4 +69,6 @@ bot.hears("/rating", (ctx) => {
   return ctx.reply(result.length ? result : "Perfect Equality");
 });
 
-bot.launch();
+bot.launch().then(() => console.log('Bot started'));
+
+
