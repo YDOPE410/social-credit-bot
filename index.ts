@@ -1,4 +1,5 @@
 import { Telegraf } from "telegraf";
+import express from "express";
 import "dotenv/config";
 
 const plusCreditStickerId = "AQADAgADf3BGHHI";
@@ -69,6 +70,12 @@ bot.hears("/rating", (ctx) => {
   return ctx.reply(result.length ? result : "Perfect Equality");
 });
 
-bot.launch().then(() => console.log('Bot started'));
+bot.launch({}).then(() => console.log("Bot started"));
 
+const app = express();
 
+app.get("/", () => {});
+
+app.get("/", (req, res) => res.json({ page: "index" }));
+
+app.listen(process.env.PORT || 3000);
