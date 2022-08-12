@@ -51,7 +51,7 @@ bot.on("sticker", (ctx) => {
   }
 });
 
-bot.hears("/rating", (ctx) => {
+bot.command("rating", (ctx) => {
   const {
     update: {
       message: {
@@ -70,10 +70,4 @@ bot.hears("/rating", (ctx) => {
   return ctx.reply(result.length ? result : "Perfect Equality");
 });
 
-bot.launch({}).then(() => console.log("Bot started"));
-
-const app = express();
-
-app.get("/", (req, res) => res.json({ page: "index" }));
-
-app.listen(process.env.PORT || 3000);
+bot.launch().then(() => console.log("Bot started"));
