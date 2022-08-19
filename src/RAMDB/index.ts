@@ -1,1 +1,1 @@
-export * from "./RAMDB";
+export * from "./RAMDB.js";

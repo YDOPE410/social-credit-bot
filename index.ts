@@ -1,3 +1,3 @@
-import { SocialBot } from "./src/bootstrap";
+import { SocialBot } from "./src/bootstrap.js";
 
 SocialBot.startBot();

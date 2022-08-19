@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { SocialCreditBot } from "./SocialCreditBot";
+import { SocialCreditBot } from "./SocialCreditBot/index.js";
 
 const token = process.env.BOT_TOKEN;
 
