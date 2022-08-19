@@ -29,7 +29,7 @@ export class SocialCreditBot {
       if (stickerPoint && messageFor) {
         if (messageFor === BOT_NAME) {
           if (stickerPoint === -1) {
-            DB.updatePoints(chatId, messageFrom, -1);
+            await DB.updatePoints(chatId, messageFrom, -1);
             ctx.reply(BOT_REPLICS.you_will_suffer(messageFrom));
             ctx.replyWithSticker(
               {
