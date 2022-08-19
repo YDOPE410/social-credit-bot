@@ -43,7 +43,7 @@ export class SocialCreditBot {
         if (messageFor === messageFrom) {
           return ctx.reply(BOT_REPLICS.you_like_yourself(messageFrom));
         }
-        await DB.updatePoints(chatId, messageFrom, stickerPoint);
+        await DB.updatePoints(chatId, messageFor, stickerPoint);
       }
     });
   }
