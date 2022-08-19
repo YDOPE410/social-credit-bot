@@ -30,7 +30,7 @@ class MONGODB {
     if (userData) {
       userData.points = (userData.points || 0) + newPoint;
     } else {
-      userData = { username: userId, points: 0 };
+      userData = { username: userId, points: newPoint };
       chatDocument?.chat.push(userData);
     }
     chatDocument?.save();
