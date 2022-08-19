@@ -14,17 +14,17 @@ class RAMDB {
   }
 
   getChat(id: string) {
-    return this.DB.get(id);
+    return this.DB.get(id) ?? this.createChat(id);
   }
 
-  createChat(id: string) {
+  private createChat(id: string) {
     const chat = new Map<string, number>();
     this.DB.set(id, chat);
     return chat;
   }
 
   updatePoints(chatId: string, userId: string, newPoints: number) {
-    const chat = this.getChat(chatId) ?? this.createChat(chatId);
+    const chat = this.getChat(chatId);
     const userPoints = this.getUserPointsFromChat(userId, chat);
     chat.set(userId, userPoints + newPoints);
   }
