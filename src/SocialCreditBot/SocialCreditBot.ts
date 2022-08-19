@@ -1,15 +1,15 @@
-import { Credit } from "./types";
+import fs from "fs";
 import { Telegraf } from "telegraf";
-import { getStickerCreditPoint, printDB } from "./helpers";
+import { getStickerCreditPoint, printDB } from "./helpers.js";
 import {
   getChatId,
   getFromUsername,
   getReplyFromUsername,
   getStickerId,
   getMessageId,
-} from "./value-getters";
-import { BOT_NAME, BOT_REPLICS } from "./constants";
-import { DB } from "../RAMDB";
+} from "./value-getters.js";
+import { BOT_NAME, BOT_REPLICS } from "./constants.js";
+import { DB } from "../RAMDB/index.js";
 
 export class SocialCreditBot {
   private telegramClient;
@@ -26,16 +26,23 @@ export class SocialCreditBot {
       const stickerId = getStickerId(ctx);
       const chatId = getChatId(ctx);
       const stickerPoint = getStickerCreditPoint(stickerId);
-      if (messageFor === BOT_NAME && stickerPoint === -1) {
-        // DB.updatePoints(chatId, messageFrom, -2);
-        ctx.reply(BOT_REPLICS.you_will_suffer(messageFrom));
-        ctx.replyWithSticker(Credit.MINUS, { reply_to_message_id: messageId });
-        return;
+      if (stickerPoint) {
+        if (messageFor === BOT_NAME && stickerPoint === -1) {
+          DB.updatePoints(chatId, messageFrom, -1);
+          ctx.reply(BOT_REPLICS.you_will_suffer(messageFrom));
+          ctx.replyWithSticker(
+            {
+              source: fs.readFileSync("./dist/static/sticker.webp"),
+            },
+            { reply_to_message_id: messageId }
+          );
+          return;
+        }
+        if (messageFor === messageFrom) {
+          return ctx.reply(BOT_REPLICS.you_like_yourself(messageFrom));
+        }
+        DB.updatePoints(chatId, messageFrom, stickerPoint);
       }
-      if (messageFor === messageFrom) {
-        return ctx.reply(BOT_REPLICS.you_like_yourself(messageFrom));
-      }
-      DB.updatePoints(chatId, messageFrom, stickerPoint);
     });
   }
 
@@ -49,7 +56,6 @@ export class SocialCreditBot {
   }
 
   startBot() {
-    console.log('started')
     this.addCreditStickerAction();
     this.addRatingCommand();
     this.telegramClient.launch().then(() => console.log("Bot started"));

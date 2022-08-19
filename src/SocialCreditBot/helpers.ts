@@ -1,4 +1,4 @@
-import { Credit } from "./types";
+import { Credit } from "./types.js";
 
 export const getStickerCreditPoint = (id: Credit) => {
   switch (id) {

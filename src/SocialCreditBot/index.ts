@@ -1,1 +1,1 @@
-export * from "./SocialCreditBot";
+export * from "./SocialCreditBot.js";
