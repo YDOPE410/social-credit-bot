@@ -26,7 +26,7 @@ export class SocialCreditBot {
       const stickerId = getStickerId(ctx);
       const chatId = getChatId(ctx);
       const stickerPoint = getStickerCreditPoint(stickerId);
-      if (stickerPoint) {
+      if (stickerPoint && messageFor) {
         if (messageFor === BOT_NAME) {
           if (stickerPoint === -1) {
             DB.updatePoints(chatId, messageFrom, -1);
