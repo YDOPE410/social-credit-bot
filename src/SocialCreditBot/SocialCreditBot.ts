@@ -15,7 +15,9 @@ export class SocialCreditBot {
   private telegramClient;
 
   constructor(token: string) {
-    this.telegramClient = new Telegraf(token);
+    this.telegramClient = new Telegraf(token, {
+      telegram: { webhookReply: true },
+    });
   }
 
   private addCreditStickerAction() {
@@ -62,9 +64,15 @@ export class SocialCreditBot {
     });
   }
 
-  startBot() {
+  getBot() {
     this.addCreditStickerAction();
     this.addRatingCommand();
-    this.telegramClient.launch().then(() => console.log("Bot started"));
+    const webhookAddres = process.env.WEBHOOK_ADDRESS;
+    if (webhookAddres === undefined) {
+      throw new Error("WEBHOOK_ADDRESS must be provided!");
+    }
+    this.telegramClient.telegram.setWebhook(webhookAddres);
+
+    return this.telegramClient;
   }
 }

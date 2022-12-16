@@ -39,4 +39,8 @@ class MONGODB {
 
 const url = process.env.MONGODB_URI;
 
-export const DB = new MONGODB(url!);
+if (url === undefined) {
+  throw new Error("MONGODB_URI must be provided!");
+}
+
+export const DB = new MONGODB(url);

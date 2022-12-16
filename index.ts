@@ -1,3 +1,7 @@
 import { SocialBot } from "./src/bootstrap.js";
 
-SocialBot.startBot();
+const bot = SocialBot.getBot();
+
+export default async function (context: any, req: any) {
+  return bot.handleUpdate(req.body, context.res);
+}
